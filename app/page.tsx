@@ -105,7 +105,7 @@ export default function Home() {
                 <p className="text-lg leading-relaxed opacity-90">
                   When organizations ignore the unconscious, they miss the single biggest driver of performance. 
                   By helping people recognize and work with these unseen patterns, you unlock their creativity, 
-                  focus, and motivation—not just at work, but in life.
+                  focus, and motivation, not just at work, but in life.
                 </p>
               </div>
               
