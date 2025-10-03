@@ -538,7 +538,7 @@ export default function Home() {
                   />
                   
                   <GradientButton type="submit" className="w-full text-lg">
-                    Take the next step
+                    Take the Next Step
                   </GradientButton>
                 </form>
               </motion.div>
@@ -591,7 +591,7 @@ export default function Home() {
               className="mt-8"
             >
               <GradientButton onClick={scrollToContact} className="text-lg">
-                Take the next step
+                Take the Next Step
               </GradientButton>
             </motion.div>
           </AnimatedSection>
