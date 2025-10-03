@@ -14,14 +14,19 @@ const config: Config = {
         'soft-grey': '#F7F8FA',
         'gold-start': '#000',
         'gold-end': '#c89116',
-        'ocean-deep': '#0A2540',
-        'ocean-mid': '#1E3A5F',
-        'ocean-light': '#2D4A7C',
+        'charcoal-grey': '#2C2C2C',
+        'medium-grey': '#4A4A4A',
+        'light-grey': '#6B6B6B',
+        'ocean-deep': '#2C2C2C', // Map to charcoal for backwards compatibility
+        'ocean-mid': '#4A4A4A', // Map to medium grey for backwards compatibility
+        'ocean-light': '#6B6B6B', // Map to light grey for backwards compatibility
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(90deg, #000 0%, #c89116 100%)',
-        'ocean-gradient': 'linear-gradient(180deg, #0A2540 0%, #1E3A5F 50%, #2D4A7C 100%)',
-        'depth-gradient': 'linear-gradient(180deg, rgba(10,37,64,0.05) 0%, rgba(10,37,64,0.02) 100%)',
+        'grey-gradient': 'linear-gradient(180deg, #2C2C2C 0%, #4A4A4A 50%, #6B6B6B 100%)',
+        'ocean-gradient': 'linear-gradient(180deg, #2C2C2C 0%, #4A4A4A 50%, #6B6B6B 100%)', // Updated for backwards compatibility
+        'depth-gradient': 'linear-gradient(180deg, rgba(44,44,44,0.05) 0%, rgba(44,44,44,0.02) 100%)',
+        'shimmer-gradient': 'linear-gradient(90deg, transparent 0%, rgba(200,145,22,0.3) 50%, transparent 100%)',
       },
       fontFamily: {
         sans: ['Inter', 'Helvetica', 'Arial', 'sans-serif'],

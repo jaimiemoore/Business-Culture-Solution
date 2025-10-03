@@ -24,9 +24,9 @@ export default function IcebergVisualization() {
             <stop offset="100%" style={{ stopColor: '#B0E0E6', stopOpacity: 0.5 }} />
           </linearGradient>
           <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#1E3A5F', stopOpacity: 0.9 }} />
-            <stop offset="50%" style={{ stopColor: '#0A2540', stopOpacity: 0.95 }} />
-            <stop offset="100%" style={{ stopColor: '#051225', stopOpacity: 1 }} />
+            <stop offset="0%" style={{ stopColor: '#4A4A4A', stopOpacity: 0.9 }} />
+            <stop offset="50%" style={{ stopColor: '#2C2C2C', stopOpacity: 0.95 }} />
+            <stop offset="100%" style={{ stopColor: '#1A1A1A', stopOpacity: 1 }} />
           </linearGradient>
         </defs>
 
@@ -39,7 +39,7 @@ export default function IcebergVisualization() {
           y1="250"
           x2="800"
           y2="250"
-          stroke="#4A90E2"
+          stroke="#6B6B6B"
           strokeWidth="2"
           strokeDasharray="10 5"
           initial={{ pathLength: 0 }}

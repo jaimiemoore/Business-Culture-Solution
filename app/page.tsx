@@ -64,7 +64,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <GradientButton onClick={scrollToContact} className="text-lg">
-                  Discover Your Hidden Potential
+                  Take the next step
                 </GradientButton>
               </motion.div>
             </AnimatedSection>
@@ -87,18 +87,18 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why This Matters Section */}
-        <section id="why" className="py-20 px-6 bg-ocean-gradient text-white relative overflow-hidden">
+        {/* The Science Behind It Section */}
+        <section id="why" className="py-20 px-6 bg-grey-gradient text-white relative overflow-hidden">
           <AnimatedSection className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-center mb-16">
-              Why This Matters
+              The Science Behind It
             </h2>
             
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
               <div>
                 <p className="text-xl leading-relaxed mb-6">
                   Modern neuroscience and psychology agree: most of our daily actions are driven by the unconscious mind. 
-                  Research suggests that as much as <span className="font-bold text-gold-end">90–95%</span> of human thought, 
+                  Research suggests that as much as <span className="font-bold text-gold-end">90-95%</span> of human thought, 
                   emotion, and behaviour happens outside of conscious awareness.
                 </p>
                 
@@ -150,12 +150,27 @@ export default function Home() {
             </div>
 
             <AnimatedSection delay={0.8} className="text-center mt-16">
-              <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl max-w-4xl mx-auto">
-                <p className="text-2xl font-serif italic">
+              <motion.div 
+                className="relative bg-white/10 backdrop-blur-sm p-8 rounded-2xl max-w-4xl mx-auto overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-shimmer-gradient"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '100%' }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatDelay: 2,
+                    ease: "easeInOut",
+                  }}
+                />
+                <p className="relative text-2xl font-serif italic">
                   "Culture is the pulse of your business. When people show up happy, mature, and motivated, 
                   they organically apply more creativity and momentum in their day-to-day way of being."
                 </p>
-              </div>
+              </motion.div>
             </AnimatedSection>
           </AnimatedSection>
         </section>
@@ -267,7 +282,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-depth-gradient" />
           <AnimatedSection className="max-w-7xl mx-auto relative">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-center mb-16">
-              Why Invest in Your People
+              The Investment That Pays Forward
             </h2>
             
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -425,22 +440,17 @@ export default function Home() {
                 every single participant will walk away with their own personal "ah-ha moment."
               </motion.p>
               
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.4 }}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="grid md:grid-cols-2 gap-8 text-left"
+                className="text-lg opacity-90 mb-8 max-w-3xl mx-auto"
               >
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="text-xl font-bold mb-3">For Some:</h3>
-                  <p>It's the spark that helps them finally step out of their own way</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="text-xl font-bold mb-3">For Others:</h3>
-                  <p>It's the insight that reshapes how they connect with their team, family, or themselves</p>
-                </div>
-              </motion.div>
+                For some, it's the spark that helps them finally step out of their own way. 
+                For others, it's the insight that reshapes how they connect with their team, 
+                family, or themselves.
+              </motion.p>
               
               <motion.p
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -485,7 +495,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-3xl font-serif mb-6">Let's Chat</h3>
+                <h3 className="text-3xl font-serif mb-6">Ready to elevate your team? Let's chat</h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <motion.input
                     whileFocus={{ scale: 1.02 }}
@@ -528,7 +538,7 @@ export default function Home() {
                   />
                   
                   <GradientButton type="submit" className="w-full text-lg">
-                    Start Your Transformation Journey
+                    Take the next step
                   </GradientButton>
                 </form>
               </motion.div>
@@ -543,7 +553,7 @@ export default function Home() {
                 <div className="sticky top-24">
                   <div className="rounded-2xl overflow-hidden shadow-2xl mb-6">
                     <Image
-                      src="/rachel-speaking-4.jpg"
+                      src="/rachel-contact.jpg"
                       alt="Rachel - Let's connect"
                       width={500}
                       height={500}
@@ -553,11 +563,7 @@ export default function Home() {
                   <div className="text-center">
                     <h4 className="text-2xl font-serif mb-2">Rachel Moore</h4>
                     <p className="text-gray-400 mb-4">
-                      Consulting Hypnotist | NLP Practitioner | Public Speaker
-                    </p>
-                    <p className="text-gray-300 italic">
-                      "Together, we'll uncover the unconscious patterns that are shaping your workplace 
-                      and transform them into conscious choices that drive real results."
+                      Human Behaviour Specialist
                     </p>
                   </div>
                 </div>
@@ -585,7 +591,7 @@ export default function Home() {
               className="mt-8"
             >
               <GradientButton onClick={scrollToContact} className="text-lg">
-                Begin Your Journey Today
+                Take the next step
               </GradientButton>
             </motion.div>
           </AnimatedSection>
