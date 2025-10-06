@@ -8,16 +8,18 @@ interface GradientButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
   className?: string
+  disabled?: boolean
 }
 
-export default function GradientButton({ children, onClick, type = 'button', className = '' }: GradientButtonProps) {
+export default function GradientButton({ children, onClick, type = 'button', className = '', disabled = false }: GradientButtonProps) {
   return (
     <motion.button
       type={type}
       onClick={onClick}
-      className={`relative px-8 py-4 text-white font-semibold rounded-lg bg-gold-gradient overflow-hidden ${className}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      disabled={disabled}
+      className={`relative px-8 py-4 text-white font-semibold rounded-lg bg-gold-gradient overflow-hidden ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+      whileHover={disabled ? {} : { scale: 1.05 }}
+      whileTap={disabled ? {} : { scale: 0.95 }}
       transition={{ duration: 0.2 }}
     >
       <motion.span

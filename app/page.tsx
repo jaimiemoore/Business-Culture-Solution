@@ -18,10 +18,54 @@ export default function Home() {
     company: '',
     interest: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you! We\'ll be in touch soon.',
+        })
+        // Clear form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          interest: '',
+        })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Something went wrong. Please try again.',
+        })
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Unable to send message. Please try again later.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const scrollToContact = () => {
@@ -503,8 +547,9 @@ export default function Home() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all"
+                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
+                    disabled={isSubmitting}
                   />
                   
                   <motion.input
@@ -513,8 +558,9 @@ export default function Home() {
                     placeholder="Email Address"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all"
+                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
+                    disabled={isSubmitting}
                   />
                   
                   <motion.input
@@ -523,8 +569,9 @@ export default function Home() {
                     placeholder="Company Name"
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all"
+                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
+                    disabled={isSubmitting}
                   />
                   
                   <motion.textarea
@@ -533,13 +580,28 @@ export default function Home() {
                     value={formData.interest}
                     onChange={(e) => setFormData({...formData, interest: e.target.value})}
                     rows={4}
-                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all resize-none"
+                    className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all resize-none disabled:opacity-50"
                     required
+                    disabled={isSubmitting}
                   />
                   
-                  <GradientButton type="submit" className="w-full text-lg">
-                    Take the Next Step
+                  <GradientButton type="submit" className="w-full text-lg" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending...' : 'Take the Next Step'}
                   </GradientButton>
+                  
+                  {submitStatus.type && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`mt-4 p-4 rounded-lg text-center ${
+                        submitStatus.type === 'success'
+                          ? 'bg-green-500/20 text-green-100 border border-green-500/30'
+                          : 'bg-red-500/20 text-red-100 border border-red-500/30'
+                      }`}
+                    >
+                      {submitStatus.message}
+                    </motion.div>
+                  )}
                 </form>
               </motion.div>
               
