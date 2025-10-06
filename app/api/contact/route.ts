@@ -5,6 +5,16 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY
+    
+    if (!apiKey) {
+      console.error('RESEND_API_KEY not found in environment variables')
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      )
+    }
+
     const body = await request.json()
     const { name, email, company, interest } = body
 
@@ -15,7 +25,7 @@ export async function POST(request: Request) {
         { status: 400 }
       )
     }
-
+    
     const { data, error } = await resend.emails.send({
       from: 'Business Culture Solution <onboarding@resend.dev>', // Update this with your verified domain
       to: ['info@businessculturesolution.com'],
