@@ -3,12 +3,38 @@ import { Resend } from 'resend'
 
 export async function POST(request: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY
+    // 🔍 COMPREHENSIVE DEBUG LOGGING
+    console.log('=== ENVIRONMENT DEBUG START ===')
+    console.log('Timestamp:', new Date().toISOString())
+    console.log('Node Environment:', process.env.NODE_ENV)
+    
+    // Log all environment variable keys (not values for security)
+    console.log('Available env var keys:', Object.keys(process.env).sort())
+    
+    // Try different ways to access the API key
+    const apiKey1 = process.env.RESEND_API_KEY
+    const apiKey2 = process.env['RESEND_API_KEY']
+    
+    console.log('API Key via dot notation:', apiKey1 ? `Found (${apiKey1.substring(0, 8)}...)` : 'NOT FOUND')
+    console.log('API Key via bracket notation:', apiKey2 ? `Found (${apiKey2.substring(0, 8)}...)` : 'NOT FOUND')
+    
+    // Check if any RESEND related env vars exist
+    const resendKeys = Object.keys(process.env).filter(key => key.includes('RESEND'))
+    console.log('RESEND-related env vars:', resendKeys)
+    
+    // Log the exact length and type
+    console.log('API Key type:', typeof apiKey1)
+    console.log('API Key length:', apiKey1?.length || 'undefined')
+    
+    console.log('=== ENVIRONMENT DEBUG END ===')
+    
+    const apiKey = apiKey1 || apiKey2
     
     if (!apiKey) {
-      console.error('RESEND_API_KEY not found in environment variables')
+      console.error('❌ RESEND_API_KEY not found in environment variables')
+      console.error('This means the environment variable is not being set correctly in Vercel')
       return NextResponse.json(
-        { error: 'Server configuration error' },
+        { error: 'Server configuration error - API key not found' },
         { status: 500 }
       )
     }
