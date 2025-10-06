@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     
     const { data, error } = await resend.emails.send({
       from: 'Business Culture Solution <onboarding@resend.dev>', // Update this with your verified domain
-      to: ['info@businessculturesolution.com'],
+      to: ['moore.jaimie@gmail.com'], // TEMPORARY: Testing email delivery
       subject: `New Contact from Business Culture Solution Website`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
