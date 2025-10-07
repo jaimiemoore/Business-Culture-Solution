@@ -141,7 +141,7 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
               <div>
                 <p className="text-xl leading-relaxed mb-6">
-                  Modern neuroscience and psychology agree: most of our daily actions are driven by the unconscious mind. 
+                  Modern neuroscience and psychology agree most of our daily actions are driven by the unconscious mind. 
                   Research suggests that as much as <span className="font-bold text-gold-end">90-95%</span> of human thought, 
                   emotion, and behaviour happens outside of conscious awareness.
                 </p>
@@ -528,7 +528,7 @@ export default function Home() {
               Ready to Transform Your Workplace Culture?
             </h2>
             <p className="text-xl text-center mb-12 text-gray-300 max-w-3xl mx-auto">
-              The solution to workplace challenges isn't another policy—it's unlocking the 
+              The solution to workplace challenges isn't another policy, it's unlocking the 
               humanness of the people doing the work.
             </p>
             
