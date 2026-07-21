@@ -10,13 +10,26 @@ import TestimonialCarousel from '@/components/TestimonialCarousel'
 import StatisticCard from '@/components/StatisticCard'
 import WaveAnimation from '@/components/WaveAnimation'
 import Image from 'next/image'
+import Script from 'next/script'
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (callback: () => void) => void
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+    }
+  }
+}
+
+const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
 export default function Home() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    interest: ''
+    interest: '',
+    website: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<{
@@ -30,12 +43,25 @@ export default function Home() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
+      if (!recaptchaSiteKey || !window.grecaptcha) {
+        throw new Error('Spam protection is unavailable')
+      }
+
+      const recaptchaToken = await new Promise<string>((resolve, reject) => {
+        window.grecaptcha!.ready(() => {
+          window.grecaptcha!
+            .execute(recaptchaSiteKey, { action: 'contact_form' })
+            .then(resolve)
+            .catch(reject)
+        })
+      })
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, recaptchaToken }),
       })
 
       const data = await response.json()
@@ -51,6 +77,7 @@ export default function Home() {
           email: '',
           company: '',
           interest: '',
+          website: '',
         })
       } else {
         setSubmitStatus({
@@ -74,6 +101,12 @@ export default function Home() {
 
   return (
     <>
+      {recaptchaSiteKey && (
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}
+          strategy="afterInteractive"
+        />
+      )}
       <Navigation />
       <main className="min-h-screen">
         {/* Hero Section */}
@@ -541,6 +574,18 @@ export default function Home() {
               >
                 <h3 className="text-3xl font-serif mb-6">Ready to elevate your team? Let's chat</h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="absolute -left-[10000px]" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      id="website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={(e) => setFormData({...formData, website: e.target.value})}
+                    />
+                  </div>
                   <motion.input
                     whileFocus={{ scale: 1.02 }}
                     type="text"
@@ -550,6 +595,7 @@ export default function Home() {
                     className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
                     disabled={isSubmitting}
+                    maxLength={100}
                   />
                   
                   <motion.input
@@ -561,6 +607,7 @@ export default function Home() {
                     className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
                     disabled={isSubmitting}
+                    maxLength={254}
                   />
                   
                   <motion.input
@@ -572,6 +619,7 @@ export default function Home() {
                     className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all disabled:opacity-50"
                     required
                     disabled={isSubmitting}
+                    maxLength={150}
                   />
                   
                   <motion.textarea
@@ -583,6 +631,7 @@ export default function Home() {
                     className="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-end transition-all resize-none disabled:opacity-50"
                     required
                     disabled={isSubmitting}
+                    maxLength={3000}
                   />
                   
                   <GradientButton type="submit" className="w-full text-lg" disabled={isSubmitting}>

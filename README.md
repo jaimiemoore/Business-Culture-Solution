@@ -24,6 +24,10 @@ A sophisticated Next.js website for Business Culture Solution, designed to showc
 
 ## Running the Project
 
+Copy `.env.example` to `.env.local`, then add the Resend API key and a Google
+reCAPTCHA v3 key pair. Register both the production domain and `localhost` in
+the reCAPTCHA admin console for production and local testing respectively.
+
 ```bash
 # Install dependencies
 npm install
