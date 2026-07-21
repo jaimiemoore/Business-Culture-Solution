@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     
     const { data, error } = await resend.emails.send({
       from: 'Business Culture Solution <info@businessculturesolution.com>',
-      to: ['rachelmoore018@gmail.com'],
+      to: ['rachel@rewirehypnosis.ca'],
       replyTo: email,
       subject: `New Contact from Business Culture Solution Website`,
       html: `
